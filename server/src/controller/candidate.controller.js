@@ -7,11 +7,8 @@ export const searchCandidateController = async (req, res) => {
   try {
     const result = await searchCandidate(search);
 
-    console.log(result);
-
     return successResponse(res, "Fetch successfully", result);
   } catch (err) {
-    console.log(err);
     return err;
   }
 };

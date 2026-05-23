@@ -147,8 +147,6 @@ export const resendOTPController = async (req, res) => {
 export const verifyPasswordController = async (req, res) => {
   const { password, user_id } = req.body;
 
-  console.log(password, user_id);
-
   try {
     const result = await getById("users", user_id);
 
@@ -172,8 +170,6 @@ export const verifyPasswordController = async (req, res) => {
 
 export const updatePasswordController = async (req, res) => {
   const { password, user_id } = req.body;
-
-  console.log(password, user_id);
 
   try {
     const result = await getById("users", user_id);
@@ -309,7 +305,6 @@ export const resetPasswordController = async (req, res) => {
   try {
     // ── 4. Fetch OTP record ─────────────────────────────────────────────────
     const otpRecord = await getById("otp_verification", otp_id);
-    console.log(otpRecord);
 
     if (!otpRecord) {
       return errorResponse(res, "Invalid or expired OTP", 400);

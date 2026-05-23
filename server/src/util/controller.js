@@ -121,15 +121,10 @@ export const getAllController = async (req, res) => {
 
 // GET: get data by user id
 export const getByUserIdController = async (req, res) => {
-  console.log("Hello");
   const { table, user_id } = req.params;
-
-  console.log("Table name: ", table, "User Id", user_id);
 
   try {
     const result = await getByUserId(user_id, table);
-
-    console.log(result);
 
     return successResponse(res, "Fetched successfully", result, 200);
   } catch (err) {
@@ -140,8 +135,6 @@ export const getByUserIdController = async (req, res) => {
 // GET: get data by id
 export const getByIdController = async (req, res) => {
   const { table, id } = req.params;
-
-  console.log(table, id);
 
   try {
     const result = await getById(table, id);
@@ -227,8 +220,6 @@ export const putByIdController = async (req, res) => {
   try {
     const result = await updateById(table, id, req.body);
 
-    console.log(result);
-
     return successResponse(res, "Put successfully", result, 200);
   } catch (err) {
     return errorResponse(res, "Update failed", 400, err);
@@ -242,8 +233,6 @@ export const putByIdController = async (req, res) => {
 // DELETE: delete data
 export const deleteController = async (req, res) => {
   const { table, id } = req.params;
-
-  console.log("Delete Contoller", id, table);
 
   try {
     const result = await deleteData(id, table);
@@ -259,8 +248,6 @@ export const deleteByColumnController = async (req, res) => {
 
   try {
     const result = await deleteByColumn(table, column, column_data);
-
-    console.log("delte", result);
 
     return successResponse(res, "Deleted successfully", result, 200);
   } catch (err) {

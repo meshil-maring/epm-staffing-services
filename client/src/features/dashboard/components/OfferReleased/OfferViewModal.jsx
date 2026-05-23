@@ -181,8 +181,6 @@ export const OfferViewModal = ({ offer = {}, onDismiss }) => {
   const [pdfViewer, setPdfViewer] = useState(null);
   const [activeTab, setActiveTab] = useState("Candidate");
 
-  console.log(offer);
-
   const {
     name = "—",
     role = "—",

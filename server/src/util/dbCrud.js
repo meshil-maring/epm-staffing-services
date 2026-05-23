@@ -33,15 +33,11 @@ const allowedColumn = [
 
 // INSERT
 export const insertData = async (table_name, dataArray) => {
-  console.log(table_name, dataArray);
-
   try {
     const res = await db`
       INSERT INTO ${db(table_name)} ${db(dataArray)}
       RETURNING *
     `;
-
-    console.log(res);
 
     return res[0];
   } catch (err) {
@@ -59,8 +55,6 @@ export const insertData = async (table_name, dataArray) => {
 export const getById = async (table_name, id) => {
   try {
     const res = await db`SELECT * FROM ${db(table_name)} WHERE id = ${id}`;
-
-    console.log(res);
 
     return res[0];
   } catch (err) {
@@ -81,8 +75,6 @@ export const getAllData = async (id, table_name) => {
 
 // GET: get data by user id
 export const getByUserId = async (user_id, table_name) => {
-  console.log("Name: ", user_id, "Table", table_name);
-
   try {
     const res = await db`
       SELECT * 
@@ -123,8 +115,6 @@ export const getByColumnName = async (table, column, column_data) => {
 
     return res;
   } catch (err) {
-    console.log(err);
-
     throw err;
   }
 };
@@ -134,8 +124,6 @@ export const getByColumnName = async (table, column, column_data) => {
 // ================================================
 
 export const updateById = async (table, id, data) => {
-  console.log(table, id, data);
-
   try {
     const res = await db`
     UPDATE ${db(table)}
@@ -143,8 +131,6 @@ export const updateById = async (table, id, data) => {
     WHERE id = ${id}
     RETURNING *
     `;
-
-    console.log(res);
 
     return res[0];
   } catch (err) {
@@ -154,8 +140,6 @@ export const updateById = async (table, id, data) => {
 
 // UPDATE: by user_id
 export const updateByUserId = async (table_name, user_id, data) => {
-  console.log("Incoming:", { user_id, table_name, data });
-
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([_, v]) => v !== undefined && v !== null),
   );
@@ -172,9 +156,7 @@ export const updateByUserId = async (table_name, user_id, data) => {
       RETURNING *
     `;
 
-    // console.log("DB Result:", res);
-
-    return res[0];
+      return res[0];
   } catch (err) {
     console.error("DB ERROR:", err);
     throw err;
@@ -197,8 +179,6 @@ export const updateByColumnNameId = async (
     throw new Error("Invalid table name");
   }
 
-  console.log(id, table_name, column_name, data);
-
   try {
     const res =
       await db`UPDATE ${db(table_name)} SET ${db(data)}, updated_at = NOW() WHERE ${db(column_name)} = ${id} RETURNING *`;
@@ -215,8 +195,6 @@ export const updateByColumnNameId = async (
 
 // DELETE single data
 export const deleteData = async (id, table_name) => {
-  console.log(id, table_name);
-
   try {
     if (!allowedTables.includes(table_name)) {
       throw new Error("Invalid table name");
@@ -232,8 +210,6 @@ export const deleteData = async (id, table_name) => {
 };
 
 export const deleteByColumn = async (table_name, column, column_data) => {
-  console.log(column, column_data);
-
   try {
     if (!allowedTables.includes(table_name)) {
       throw new Error("Invalid table name");

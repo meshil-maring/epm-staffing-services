@@ -39,8 +39,6 @@ function CompanyCardTopPart({
 
     const res = await handleFollowChange(companyId, user.id, followed);
 
-    console.log(res);
-
     res.success && setFollowed((prev) => !prev);
 
     setIsLoading(false);

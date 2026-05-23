@@ -58,8 +58,6 @@ export const updateByColumnNameIdService = async (
   column_name,
   id,
 ) => {
-  console.log(URL, data, table, column_name, id);
-
   try {
     const res = await fetch(
       `${API_ROUTES}/${URL}/${table}/${column_name}/${id}`,
@@ -149,8 +147,6 @@ export const insertDataService = async (URL, objData) => {
 // ================================================
 // Create company information
 export const deleteByIdService = async (URL, table, id) => {
-  console.log(URL, table, id);
-
   try {
     const res = await fetch(`${API_ROUTES}/${URL}/${table}/${id}`, {
       method: "DELETE",
@@ -159,8 +155,6 @@ export const deleteByIdService = async (URL, table, id) => {
     });
 
     const data = await res.json();
-
-    console.log(data);
 
     return data;
   } catch (err) {

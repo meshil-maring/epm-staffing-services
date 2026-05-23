@@ -119,7 +119,13 @@ export default function ReleaseOfferModal({ application, onClose }) {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer?.files?.[0] || e.target.files?.[0];
-    if (file && file.type === "application/pdf") setPdfFile(file);
+    if (!file) return;
+    if (file.type !== "application/pdf") return;
+    if (file.size > 10 * 1024 * 1024) {
+      setToast({ type: "error", message: "File is too large. Maximum size is 10 MB." });
+      return;
+    }
+    setPdfFile(file);
   };
 
   const releaseOfferHandler = async () => {

@@ -23,8 +23,6 @@ const FetchButton = ({ label = "Fetch Data" }) => {
       setLoading(true);
 
       const res = await searchCandidate("Meshil");
-
-      console.log(res);
     } catch (error) {
       console.error("Fetch error:", error);
     } finally {

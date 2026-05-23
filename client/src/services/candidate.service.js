@@ -24,7 +24,6 @@ export const uploadPdfService = async (
 
     return data;
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };
@@ -43,6 +42,6 @@ export const searchCandiateService = async (candidate_name) => {
 
     return data;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };

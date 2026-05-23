@@ -138,8 +138,6 @@ export const registerUser = async (formData) => {
  * @returns {Promise<Object>} Promise resolving to { success, data: otp_id }
  */
 export const forgotPasswordService = async (email) => {
-  console.log(email)
-
   const response = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -165,8 +163,6 @@ export const forgotPasswordService = async (email) => {
  * @returns {Promise<Object>} Promise resolving to API response
  */
 export const resetPasswordService = async (otp_id, otp_code, email, new_password) => {
-  console.log(otp_id, otp_code, email, new_password)
-
   const response = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

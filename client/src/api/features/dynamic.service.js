@@ -102,8 +102,6 @@ export const insertDataService = async (URL, table, dataObj) => {
 // router.patch("/update/id/:table/:id", updateByIdController);
 
 export const updateByIdService = async (URL, data, table, id) => {
-  console.log(data);
-
   try {
     const res = await fetch(`${API_ROUTES}/${URL}/${table}/${id}`, {
       method: "PATCH",
@@ -123,8 +121,6 @@ export const updateByIdService = async (URL, data, table, id) => {
 };
 
 export const putByIdService = async (URL, table, data, id) => {
-  console.log(URL, data, table, id);
-
   try {
     const res = await fetch(`${API_ROUTES}/${URL}/id/${table}/${id}`, {
       method: "PUT",
@@ -135,11 +131,8 @@ export const putByIdService = async (URL, table, data, id) => {
       body: JSON.stringify(data),
     });
 
-    console.log(res);
-
     return res;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };
@@ -159,11 +152,9 @@ export const deleteService = async (URL, table, id) => {
     });
 
     const data = await res.json();
-    console.log(data);
 
     return data;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };
@@ -185,11 +176,8 @@ export const deleteByColumnService = async (
 
     const data = await res.json();
 
-    console.log(data);
-
     return data;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };

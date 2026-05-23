@@ -63,7 +63,6 @@ app.use(cookieParser());
 
 try {
   app.use(sessionService());
-  console.log("Session service initialized");
 } catch (error) {
   console.error("Session service failed:");
   console.error(error);
@@ -92,7 +91,6 @@ app.get("/", (req, res) => {
 
 try {
   startOtpCleanup();
-  console.log("OTP cleanup job started");
 } catch (error) {
   console.error("OTP cleanup job failed:");
   console.error(error);
@@ -103,9 +101,7 @@ try {
 // ===============================
 
 try {
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  app.listen(PORT, "0.0.0.0");
 } catch (error) {
   console.error("SERVER START FAILED:");
   console.error(error);

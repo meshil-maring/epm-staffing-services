@@ -19,8 +19,6 @@ export const sessionService = () => {
     throw new Error("DATABASE_URL is missing");
   }
 
-  console.log("Initializing session service...");
-
   return session({
     name: "session_id",
 

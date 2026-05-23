@@ -171,8 +171,6 @@ export default function ScheduleInterviewModal({
         res = await scheduleInterview(candidate.id, user_id, form);
       }
 
-      console.log(res);
-
       if (!res.success || !res?.data?.application_id) {
         showError("Failed to schedule");
         return;

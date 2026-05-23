@@ -108,7 +108,5 @@ export const getUsersFullDataService = async (page = 1, limit = 10) => {
     LIMIT ${limit} OFFSET ${offset}
   `;
 
-  console.log(jobs);
-
   return jobs;
 };

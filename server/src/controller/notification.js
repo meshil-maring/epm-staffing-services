@@ -9,7 +9,6 @@ export const getClientNotificationController = async (req, res) => {
     successResponse(res, "Fetch successful", result);
   } catch (err) {
     errorResponse(res, "Failed", 400, err.message);
-    console.log(err);
   }
 };
 
@@ -19,6 +18,5 @@ export const getAdminNotificationController = async (req, res) => {
     successResponse(res, "Fetch successful", result);
   } catch (err) {
     errorResponse(res, "Failed", 400, err.message);
-    console.log(err);
   }
 };

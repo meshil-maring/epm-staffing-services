@@ -53,8 +53,6 @@ const OfferReleasedMain = () => {
     },
   });
 
-  console.log("data: ", data);
-
   const offers = Array.isArray(data?.data)
     ? data.data
     : Array.isArray(data)

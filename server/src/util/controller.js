@@ -1,5 +1,5 @@
 import { successResponse, errorResponse } from "./response.js";
-import { supabase } from "../config/supabase.js";
+import { supabase, supabaseAdmin } from "../config/supabase.js";
 import fs from "fs";
 
 import {
@@ -79,11 +79,10 @@ export const uploadPdfController = async (req, res) => {
       file_type: file.mimetype,
     };
 
-    // ← upsert instead of insert
-    const { error: dbError } = await supabase
+    const { error: dbError } = await supabaseAdmin
       .from("candidate_documents")
       .upsert(readyData, {
-        onConflict: "candidate_id, file_name", // update if same candidate + folder
+        onConflict: "candidate_id, file_name",
       });
 
     if (dbError) {

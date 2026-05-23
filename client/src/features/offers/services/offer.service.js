@@ -33,7 +33,7 @@ export const offerReleased = async (application_id, candidate_id, data, file) =>
       return { success: false, message: 'Failed to upload offer letter.' };
     }
 
-    const fileUrl = uploadRes?.url ?? uploadRes?.data?.url ?? null;
+    const fileUrl = uploadRes?.data ?? null;
 
     // 3. Prepare payload
     const payload = {

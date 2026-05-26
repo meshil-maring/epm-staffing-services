@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePageTitle } from "../hooks/usePageTitle";
 import {
   FileText,
@@ -19,6 +19,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { uploadAgreementService } from "../services/uploadFile.service";
 import { showError } from "../utils/toastUtils";
+import { useAuth } from "../hooks/useAuth";
+import { updateByIdService } from "../utils/server_until/service.js";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -505,6 +507,16 @@ function SubmitSection({
 export default function TermsAgreement() {
   usePageTitle("Terms & Conditions");
   const navigate = useNavigate();
+  const { user, loading: authLoading, refetch } = useAuth();
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      navigate("/auth/signin", { replace: true });
+    } else if (user.signup_stage === "completed") {
+      navigate("/client/dashboard", { replace: true });
+    }
+  }, [user, authLoading, navigate]);
 
   const [expandedSections, setExpandedSections] = useState(
     SECTIONS.map((_, i) => i < 2),
@@ -549,7 +561,7 @@ export default function TermsAgreement() {
   const handleSubmit = async () => {
     if (!canSubmit || loading) return;
 
-    const user_id = localStorage.getItem("user_id");
+    const user_id = user?.id || localStorage.getItem("user_id");
     const company_name = localStorage.getItem("company_name");
 
     if (!user_id) return navigate("/auth/signup_form");
@@ -566,6 +578,15 @@ export default function TermsAgreement() {
         authority_name: authorityName,
         service_charge: serviceCharge,
       });
+
+      await updateByIdService(
+        "api/dr/update/id",
+        { signup_stage: "completed" },
+        "users",
+        user_id,
+      );
+
+      await refetch();
 
       setSubmitted(true);
     } catch (err) {

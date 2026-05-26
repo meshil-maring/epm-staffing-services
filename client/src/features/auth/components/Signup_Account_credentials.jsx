@@ -131,6 +131,8 @@ function Signup_Account_credentials() {
           return navigate("/auth/signup_form/contact_information");
         if (stage === "4")
           return navigate("/auth/signup_form/address_information");
+        if (stage === "5")
+          return navigate("/register/terms-and-condition");
 
         return showError("Unexpected account state. Please contact support.");
       }

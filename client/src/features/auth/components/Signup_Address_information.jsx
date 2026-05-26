@@ -135,7 +135,7 @@ function Signup_Address_information() {
 
       await updateByIdService(
         "api/dr/update/id",
-        { signup_stage: "completed" },
+        { signup_stage: "5" },
         "users",
         userId,
       );

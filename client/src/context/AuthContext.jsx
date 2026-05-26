@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
           id: res?.userId,
           email: res?.email,
           role: res?.role,
+          signup_stage: res?.signup_stage,
         };
       }
 

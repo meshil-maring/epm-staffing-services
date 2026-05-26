@@ -10,6 +10,7 @@ export const checkSession = async (req, res) => {
       userId: user.id,
       email: user.email,
       role: user.role,
+      signup_stage: user.signup_stage,
     });
   }
 

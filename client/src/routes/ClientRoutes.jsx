@@ -1,6 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../shared/hooks/useAuth";
 
+function stageRoute(signup_stage) {
+  if (signup_stage === "2") return "/auth/signup_form/company_information";
+  if (signup_stage === "3") return "/auth/signup_form/contact_information";
+  if (signup_stage === "4") return "/auth/signup_form/address_information";
+  if (signup_stage === "5") return "/register/terms-and-condition";
+  return "/auth/signup_form";
+}
+
 function AuthLoadingScreen() {
   return (
     <div className="relative min-h-screen w-full bg-[#f8f7f4] flex items-center justify-center overflow-hidden font-sans">
@@ -100,6 +108,10 @@ function ClientRoutes() {
 
   if (!user || user.role !== "user") {
     return <Navigate to="/auth/signin" replace />;
+  }
+
+  if (user.signup_stage !== "completed") {
+    return <Navigate to={stageRoute(user.signup_stage)} replace />;
   }
 
   return <Outlet />;

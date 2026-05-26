@@ -69,6 +69,7 @@ function Signin_form() {
         if (signupStage === "2") return navigate("/auth/signup_form/company_information");
         if (signupStage === "3") return navigate("/auth/signup_form/contact_information");
         if (signupStage === "4") return navigate("/auth/signup_form/address_information");
+        if (signupStage === "5") return navigate("/register/terms-and-condition");
         return navigate("/auth/signup_form");
       }
 

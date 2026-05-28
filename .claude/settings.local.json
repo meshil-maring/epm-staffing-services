@@ -45,7 +45,8 @@
       "Bash(Select-Object Name)",
       "Bash(xargs grep -l \"setClosing\\\\|closeOverlay\\\\|isOpen.*=\\\\|onClose\")",
       "Bash(xargs grep -l \"react-helmet\\\\|react-helmet-async\")",
-      "Bash(grep -E \"\\\\.\\(jsx|js\\)$\")"
+      "Bash(grep -E \"\\\\.\\(jsx|js\\)$\")",
+      "Bash(dir -la)"
     ],
     "additionalDirectories": [
       "e:\\EPM\\EPM-STAFFING-SERVICES\\client",

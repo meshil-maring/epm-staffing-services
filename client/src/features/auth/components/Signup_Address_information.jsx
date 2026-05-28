@@ -140,7 +140,7 @@ function Signup_Address_information() {
         userId,
       );
 
-      await queryClient.invalidateQueries({ queryKey: ["session"] });
+      await queryClient.invalidateQueries({ queryKey: ["authUser"] });
 
       setDirty(false);
       navigate("/register/terms-and-condition");

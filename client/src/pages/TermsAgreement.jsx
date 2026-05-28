@@ -21,6 +21,7 @@ import { uploadAgreementService } from "../services/uploadFile.service";
 import { showError } from "../utils/toastUtils";
 import { useAuth } from "../hooks/useAuth";
 import { updateByIdService } from "../utils/server_until/service.js";
+import { useQueryClient } from "@tanstack/react-query";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -507,16 +508,8 @@ function SubmitSection({
 export default function TermsAgreement() {
   usePageTitle("Terms & Conditions");
   const navigate = useNavigate();
-  const { user, loading: authLoading, refetch } = useAuth();
-
-  useEffect(() => {
-    if (authLoading) return;
-    if (!user) {
-      navigate("/auth/signin", { replace: true });
-    } else if (user.signup_stage === "completed") {
-      navigate("/client/dashboard", { replace: true });
-    }
-  }, [user, authLoading, navigate]);
+  const { user, loading: authLoading } = useAuth();
+  const queryClient = useQueryClient();
 
   const [expandedSections, setExpandedSections] = useState(
     SECTIONS.map((_, i) => i < 2),
@@ -529,6 +522,15 @@ export default function TermsAgreement() {
   const [agreed, setAgreed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      navigate("/auth/signin", { replace: true });
+    } else if (user.signup_stage === "completed" && !submitted) {
+      navigate("/client/dashboard", { replace: true });
+    }
+  }, [user, authLoading, navigate, submitted]);
 
   const handleToggleSection = (i) =>
     setExpandedSections((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
@@ -586,7 +588,9 @@ export default function TermsAgreement() {
         user_id,
       );
 
-      await refetch();
+      queryClient.setQueryData(["authUser"], (old) =>
+        old ? { ...old, signup_stage: "completed" } : null,
+      );
 
       setSubmitted(true);
     } catch (err) {

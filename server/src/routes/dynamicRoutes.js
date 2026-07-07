@@ -24,11 +24,11 @@ const router = express.Router();
 ==============================
 */
 
-router.get("/get/:table/:id", getByIdController);
-
 router.get("/get/user-id/:table/:user_id", getByUserIdController);
 
 router.get("/get/:table/:column/:column_data", getByColumnNameController);
+
+router.get("/get/:table/:id", getByIdController);
 
 // Get with page
 router.get("/get/:table", getWithPageController);

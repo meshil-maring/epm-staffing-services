@@ -31,6 +31,10 @@ export const uploadAgreementController = async (req, res) => {
   if (!user_id) return errorResponse(res, "User ID is required", 400);
   if (!authority_name) return errorResponse(res, "Authority name is required", 400);
 
+  const ALLOWED = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+  if (!ALLOWED.includes(signatureFile.mimetype)) return errorResponse(res, "Signature must be an image (PNG, JPG, WEBP)", 400);
+  if (!ALLOWED.includes(stampFile.mimetype)) return errorResponse(res, "Stamp must be an image (PNG, JPG, WEBP)", 400);
+
   const uploadedPaths = [];
 
   try {

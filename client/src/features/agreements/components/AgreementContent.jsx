@@ -1,12 +1,26 @@
 import logoSvg from "../../../assets/images/logo.svg";
 import signature from "../../../assets/images/Signature.png";
 
-function MediaPreview({ url, alt, style }) {
+function MediaPreview({ url, alt, size = 96 }) {
   if (!url) return null;
-  if (/\.pdf(\?|$)/i.test(url)) {
-    return <embed src={url} type="application/pdf" style={style} />;
-  }
-  return <img src={url} alt={alt} crossOrigin="anonymous" style={style} />;
+  return (
+    <div style={{ width: size, height: size, overflow: "hidden", display: "block", marginTop: 4, position: "relative" }}>
+      <iframe
+        src={url}
+        title={alt}
+        scrolling="no"
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "none",
+          display: "block",
+          pointerEvents: "none",
+        }}
+      />
+      {/* overlay to block all mouse interaction including zoom */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1 }} />
+    </div>
+  );
 }
 
 function SectionHeading({ children }) {
@@ -367,11 +381,7 @@ export default function AgreementContent({ d, feeLabel }) {
           <div className="mb-3">
             <span className="text-[11px] ea-serif text-slate-800">Signature:</span>
             {d.signatureUrl ? (
-              <MediaPreview
-                url={d.signatureUrl}
-                alt="Client Signature"
-                style={{ width: 128, height: 44, objectFit: "contain", display: "block", marginTop: 4 }}
-              />
+              <MediaPreview url={d.signatureUrl} alt="Client Signature" size={96} />
             ) : (
               <div className="border-b border-slate-700 mt-2.5" />
             )}
@@ -385,15 +395,11 @@ export default function AgreementContent({ d, feeLabel }) {
             Stamp:
           </p>
           {d.stampUrl ? (
-            <MediaPreview
-              url={d.stampUrl}
-              alt="Company Stamp"
-              style={{ width: 96, height: 80, objectFit: "contain", display: "block" }}
-            />
+            <MediaPreview url={d.stampUrl} alt="Company Stamp" size={96} />
           ) : (
             <div
               className="flex items-center justify-center text-slate-400 font-sans"
-              style={{ width: 96, height: 80, border: "1px dashed #94a3b8", fontSize: 9 }}
+              style={{ width: 96, height: 96, border: "1px dashed #94a3b8", fontSize: 9 }}
             >
               Company Stamp
             </div>

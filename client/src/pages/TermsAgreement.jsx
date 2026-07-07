@@ -79,15 +79,45 @@ const SECTIONS = [
 
 // ─── UploadBox ────────────────────────────────────────────────────────────────
 
-function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept }) {
+const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+
+function validateImage(file) {
+  if (!ALLOWED_TYPES.includes(file.type)) return "Only image files are allowed (PNG, JPG, WEBP)";
+  if (file.size > 5 * 1024 * 1024) return "File size must be under 5MB";
+  return null;
+}
+
+function checkSquare(file) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img.width / img.height >= 0.8 && img.width / img.height <= 1.2); };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(false); };
+    img.src = url;
+  });
+}
+
+function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept, requireSquare = false }) {
   const inputRef = useRef(null);
   const [dragging, setDragging] = useState(false);
+  const [fileError, setFileError] = useState("");
+
+  const handleFile = async (f) => {
+    setFileError("");
+    const err = validateImage(f);
+    if (err) { setFileError(err); return; }
+    if (requireSquare) {
+      const isSquare = await checkSquare(f);
+      if (!isSquare) { setFileError("Signature must be a 1:1 square image"); return; }
+    }
+    onFileChange(f);
+  };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setDragging(false);
     const dropped = e.dataTransfer.files[0];
-    if (dropped) onFileChange(dropped);
+    if (dropped) handleFile(dropped);
   };
 
   return (
@@ -113,7 +143,7 @@ function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept }) {
           </div>
 
           <button
-            onClick={onClear}
+            onClick={() => { setFileError(""); onClear(); }}
             className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center hover:bg-red-100 transition-colors"
           >
             <X size={13} className="text-slate-600" />
@@ -156,10 +186,16 @@ function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept }) {
               Drop file or <span className="text-violet-600">browse</span>
             </p>
             <p className="text-xs text-slate-500 mt-0.5">
-              PNG, JPG, PDF up to 5MB
+              PNG, JPG, JPEG up to 5MB · Images only
             </p>
           </div>
         </div>
+      )}
+
+      {fileError && (
+        <p className="flex items-center gap-1.5 text-xs text-red-500 mt-1">
+          <AlertCircle size={12} /> {fileError}
+        </p>
       )}
 
       <input
@@ -167,7 +203,7 @@ function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept }) {
         type="file"
         accept={accept}
         className="hidden"
-        onChange={(e) => e.target.files[0] && onFileChange(e.target.files[0])}
+        onChange={(e) => e.target.files[0] && handleFile(e.target.files[0])}
       />
     </div>
   );
@@ -368,7 +404,8 @@ function AuthorisationSection({
           file={signatureFile}
           onFileChange={onSignatureChange}
           onClear={() => onSignatureChange(null)}
-          accept="image/*,application/pdf"
+          accept="image/png,image/jpeg,image/jpg,image/webp"
+          requireSquare
         />
 
         <UploadBox
@@ -377,7 +414,7 @@ function AuthorisationSection({
           file={stampFile}
           onFileChange={onStampChange}
           onClear={() => onStampChange(null)}
-          accept="image/*,application/pdf"
+          accept="image/png,image/jpeg,image/jpg,image/webp"
         />
 
         <div className="col-span-2 flex flex-col gap-2">

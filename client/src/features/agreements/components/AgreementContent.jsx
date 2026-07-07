@@ -3,21 +3,24 @@ import signature from "../../../assets/images/Signature.png";
 
 function MediaPreview({ url, alt, size = 96 }) {
   if (!url) return null;
+  const isPdf = /\.pdf(\?|$)/i.test(url);
   return (
-    <div style={{ width: size, height: size, overflow: "hidden", display: "block", marginTop: 4, position: "relative" }}>
-      <iframe
-        src={url}
-        title={alt}
-        scrolling="no"
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "none",
-          display: "block",
-          pointerEvents: "none",
-        }}
-      />
-      {/* overlay to block all mouse interaction including zoom */}
+    <div style={{ width: size, height: size, overflow: "hidden", display: "block", marginTop: 4, position: "relative", backgroundColor: "#fff" }}>
+      {isPdf ? (
+        <iframe
+          src={`${url}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
+          title={alt}
+          scrolling="no"
+          style={{ width: "100%", height: "100%", border: "none", display: "block", pointerEvents: "none" }}
+        />
+      ) : (
+        <img
+          src={url}
+          alt={alt}
+          style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", display: "block" }}
+          draggable={false}
+        />
+      )}
       <div style={{ position: "absolute", inset: 0, zIndex: 1 }} />
     </div>
   );

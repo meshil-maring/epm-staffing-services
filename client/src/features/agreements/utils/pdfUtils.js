@@ -71,5 +71,6 @@ export const getPdfConfig = (documentNumber) => ({
 });
 
 export const generatePdf = async (element, config) => {
-  await window.html2pdf().set(config).from(element).save();
+  const html2pdf = (await import("html2pdf.js")).default;
+  await html2pdf().set(config).from(element).save();
 };

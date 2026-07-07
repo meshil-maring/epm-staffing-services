@@ -23,7 +23,7 @@ export default function EmpanelmentAgreement({ onClose, userId: userIdProp }) {
   const feeLabel =
     d.serviceChargePercent === "___" ? "__%" : `${d.serviceChargePercent}%`;
 
-  const handlePrint = usePrint();
+  const { handlePrint, isPrinting } = usePrint();
 
   useEscapeKey(onClose);
   useBodyScrollLock();
@@ -43,6 +43,7 @@ export default function EmpanelmentAgreement({ onClose, userId: userIdProp }) {
               isLoading={isLoading}
               isError={isError}
               onPrint={handlePrint}
+              isPrinting={isPrinting}
               onClose={onClose}
             />
           </div>

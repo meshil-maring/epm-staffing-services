@@ -1,6 +1,6 @@
 import { X, Printer, Loader2, ScrollText } from "lucide-react";
 
-export default function Toolbar({ isLoading, isError, onPrint, onClose }) {
+export default function Toolbar({ isLoading, isError, onPrint, isPrinting, onClose }) {
   return (
     <div
       id="ea-toolbar"
@@ -38,11 +38,15 @@ export default function Toolbar({ isLoading, isError, onPrint, onClose }) {
       <div className="flex items-center gap-2">
         <button
           onClick={onPrint}
+          disabled={isPrinting}
           title="Print / Save as PDF"
-          className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold font-sans transition-all duration-200 bg-orange-500 hover:bg-orange-400 text-white shadow-lg shadow-orange-500/25 active:scale-95"
+          className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-semibold font-sans transition-all duration-200 bg-orange-500 hover:bg-orange-400 text-white shadow-lg shadow-orange-500/25 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <Printer size={14} />
-          Print / Save PDF
+          {isPrinting ? (
+            <><Loader2 size={14} className="animate-spin" /> Generating...</>
+          ) : (
+            <><Printer size={14} /> Print / Save PDF</>
+          )}
         </button>
 
         {onClose && (

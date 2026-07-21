@@ -7,4 +7,6 @@ server/.env
 client/.env
 .env
 .claude
+./claude
 .vscode
+./vscode

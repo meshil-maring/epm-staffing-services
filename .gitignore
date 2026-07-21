@@ -6,3 +6,5 @@ client/node_modules
 server/.env
 client/.env
 .env
+.claude
+.vscode

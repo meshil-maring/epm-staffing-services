@@ -21,16 +21,16 @@ const sections = [
   {
     title: "Candidate Sharing & Process",
     items: [
-      "EPM Staffing Services (OPC) Private Limited will share candidate profiles without contact details initially.",
-      "Contact details are provided only after the candidate is shortlisted by your company.",
+      "EPM Staffing Services (OPC) Private Limited shall initially share candidate profiles without contact details.",
+      "The candidate's contact details shall be shared only after the candidate has been shortlisted by the Client.",
     ],
   },
   {
     title: "Fees & Payment",
     items: [
-      "A one-time professional fee (agreed signed % of annual CTC, with or without GST) shall be payable before 60 days from the candidate's date of joining, subject to the fulfilment of the service.",
+      "A one-time professional fee, equivalent to the agreed percentage of the candidate's Annual Cost to Company (CTC), with or without GST,( if applicable), shall become payable upon the candidate's successful completion of 90 (ninety) days of continuous employment with your company, subject to the satisfactory fulfilment of the recruitment services.",
       "The fee applies even if the candidate is hired within 6 months of referral, directly or indirectly.",
-      "Invoice is issued after 45 days of candidate confirmation; payment is due within 7 days.",
+      "The invoice shall be issued 60 days after the candidate's date of joining. Payment shall be made within 7 days from the date of invoice issuance.",
       "Payments must be made via net banking or UPI.",
       "All payments shall be made in favour of EPM Staffing Services (OPC) Private Limited.",
     ],
@@ -49,7 +49,7 @@ const sections = [
   {
     title: "Non-Payment Consequences",
     items: [
-      "If payment is delayed beyond 45–60 days, the agency may suspend services, stop sharing candidates, or take legal/recovery action.",
+      "If payment remains outstanding for more than 30 (thirty) days from the date of invoice issuance, EPM Staffing Services (OPC) Private Limited reserves the right to suspend its recruitment services, discontinue the submission of candidate profiles, and initiate appropriate legal and recovery proceedings to recover the outstanding dues, without prejudice to any other rights or remedies available under applicable law.",
     ],
   },
   {
@@ -57,7 +57,6 @@ const sections = [
     items: [
       "Governed by Indian law.",
       "Disputes are settled via arbitration in Guwahati (in English).",
-      "All legal costs are borne by your company.",
     ],
   },
   {

@@ -40,7 +40,7 @@ function HomeTopBar() {
         <Button
           onclick={handleBtnClick}
           type="button"
-          text="Login"
+          text="Login or Register"
           class_name="text-sm md:text-base font-medium text-text_b hover:text-red transition-colors px-5 py-2.5 border border-lighter rounded-small hover:border-red/30 focus:ring-2 focus:ring-red/20 outline-none"
         />
       </nav>

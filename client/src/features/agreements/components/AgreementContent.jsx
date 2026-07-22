@@ -5,19 +5,41 @@ function MediaPreview({ url, alt, size = 96 }) {
   if (!url) return null;
   const isPdf = /\.pdf(\?|$)/i.test(url);
   return (
-    <div style={{ width: size, height: size, overflow: "hidden", display: "block", marginTop: 4, position: "relative", backgroundColor: "#fff" }}>
+    <div
+      style={{
+        width: size,
+        height: size,
+        overflow: "hidden",
+        display: "block",
+        marginTop: 4,
+        position: "relative",
+        backgroundColor: "#fff",
+      }}
+    >
       {isPdf ? (
         <iframe
           src={`${url}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
           title={alt}
           scrolling="no"
-          style={{ width: "100%", height: "100%", border: "none", display: "block", pointerEvents: "none" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            display: "block",
+            pointerEvents: "none",
+          }}
         />
       ) : (
         <img
           src={url}
           alt={alt}
-          style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", display: "block" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            objectPosition: "center",
+            display: "block",
+          }}
           draggable={false}
         />
       )}
@@ -30,7 +52,9 @@ function SectionHeading({ children }) {
   return (
     <div className="flex items-center gap-2 mt-2.5 mb-1">
       <div className="w-1 h-4 bg-orange-500 rounded-sm shrink-0" />
-      <p className="text-[11.5px] font-bold text-slate-900 ea-serif">{children}</p>
+      <p className="text-[11.5px] font-bold text-slate-900 ea-serif">
+        {children}
+      </p>
     </div>
   );
 }
@@ -39,7 +63,10 @@ function BulletList({ items }) {
   return (
     <ul className="pl-4 mb-1.5 space-y-0.5" style={{ listStyleType: "disc" }}>
       {items.map((item, i) => (
-        <li key={i} className="text-[11px] leading-[1.6] text-justify ea-serif text-slate-800">
+        <li
+          key={i}
+          className="text-[11px] leading-[1.6] text-justify ea-serif text-slate-800"
+        >
           {item}
         </li>
       ))}
@@ -52,7 +79,9 @@ function SignatureField({ label, value }) {
     <div className="mb-3">
       <span className="text-[11px] ea-serif text-slate-800">{label}</span>
       {value ? (
-        <p className="text-[11px] ea-serif text-slate-900 font-semibold mt-0.5">{value}</p>
+        <p className="text-[11px] ea-serif text-slate-900 font-semibold mt-0.5">
+          {value}
+        </p>
       ) : null}
       <div className="border-b border-slate-700 mt-1.5" />
     </div>
@@ -86,7 +115,12 @@ export default function AgreementContent({ d, feeLabel }) {
                 <img
                   src={logoSvg}
                   alt="EPM Staffing Services"
-                  style={{ width: 58, height: 58, objectFit: "contain", display: "block" }}
+                  style={{
+                    width: 58,
+                    height: 58,
+                    objectFit: "contain",
+                    display: "block",
+                  }}
                   crossOrigin="anonymous"
                 />
               </td>
@@ -232,7 +266,7 @@ export default function AgreementContent({ d, feeLabel }) {
               <strong>EPM Staffing Services (OPC) Private Limited</strong> will
               share candidate profiles without contact details initially.
             </>,
-            "Contact details are provided only after the candidate is shortlisted by the client.",
+            "The candidate's contact details shall be shared only after the candidate has been shortlisted by the Client.",
           ]}
         />
 
@@ -241,11 +275,11 @@ export default function AgreementContent({ d, feeLabel }) {
         <BulletList
           items={[
             <>
-              A one-time professional fee 
-              <strong > {feeLabel} of annual CTC</strong>,
-              with or without GST as per applicable) shall be payable after 60
-              days from the candidate&apos;s date of joining, subject to the
-              fulfilment of the service.
+              A one-time professional fee
+              <strong> {feeLabel} of annual CTC</strong>, with or without GST as
+              per applicable) shall be payable after 60 days from the
+              candidate&apos;s date of joining, subject to the fulfilment of the
+              service.
             </>,
             <>
               <strong>Candidate ownership:</strong> The fee applies even if the
@@ -348,7 +382,7 @@ export default function AgreementContent({ d, feeLabel }) {
               fontSize: 9,
             }}
           >
-            <img src={signature}/>
+            <img src={signature} />
           </div>
 
           <p
@@ -382,15 +416,24 @@ export default function AgreementContent({ d, feeLabel }) {
 
           {/* Client signature */}
           <div className="mb-3">
-            <span className="text-[11px] ea-serif text-slate-800">Signature:</span>
+            <span className="text-[11px] ea-serif text-slate-800">
+              Signature:
+            </span>
             {d.signatureUrl ? (
-              <MediaPreview url={d.signatureUrl} alt="Client Signature" size={96} />
+              <MediaPreview
+                url={d.signatureUrl}
+                alt="Client Signature"
+                size={96}
+              />
             ) : (
               <div className="border-b border-slate-700 mt-2.5" />
             )}
           </div>
 
-          <SignatureField label="Name of the Competent Authority:" value={d.authorityName} />
+          <SignatureField
+            label="Name of the Competent Authority:"
+            value={d.authorityName}
+          />
           {/* <SignatureField label="Current Designation:" /> */}
 
           {/* Stamp */}
@@ -402,7 +445,12 @@ export default function AgreementContent({ d, feeLabel }) {
           ) : (
             <div
               className="flex items-center justify-center text-slate-400 font-sans"
-              style={{ width: 96, height: 96, border: "1px dashed #94a3b8", fontSize: 9 }}
+              style={{
+                width: 96,
+                height: 96,
+                border: "1px dashed #94a3b8",
+                fontSize: 9,
+              }}
             >
               Company Stamp
             </div>

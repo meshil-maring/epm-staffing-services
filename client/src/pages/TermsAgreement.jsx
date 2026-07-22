@@ -30,7 +30,7 @@ const SECTIONS = [
     title: "Candidate Sharing & Process",
     items: [
       "EPM Staffing Services (OPC) Private Limited shall initially share candidate profiles without contact details.",
-      "Contact details are provided only after the candidate is shortlisted by your company.",
+      "The candidate's contact details shall be shared only after the candidate has been shortlisted by the Client.",
     ],
   },
   {
@@ -82,7 +82,8 @@ const SECTIONS = [
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
 
 function validateImage(file) {
-  if (!ALLOWED_TYPES.includes(file.type)) return "Only image files are allowed (PNG, JPG, WEBP)";
+  if (!ALLOWED_TYPES.includes(file.type))
+    return "Only image files are allowed (PNG, JPG, WEBP)";
   if (file.size > 5 * 1024 * 1024) return "File size must be under 5MB";
   return null;
 }
@@ -91,13 +92,27 @@ function checkSquare(file) {
   return new Promise((resolve) => {
     const img = new Image();
     const url = URL.createObjectURL(file);
-    img.onload = () => { URL.revokeObjectURL(url); resolve(img.width / img.height >= 0.8 && img.width / img.height <= 1.2); };
-    img.onerror = () => { URL.revokeObjectURL(url); resolve(false); };
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(img.width / img.height >= 0.8 && img.width / img.height <= 1.2);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(false);
+    };
     img.src = url;
   });
 }
 
-function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept, requireSquare = false }) {
+function UploadBox({
+  label,
+  icon: Icon,
+  file,
+  onFileChange,
+  onClear,
+  accept,
+  requireSquare = false,
+}) {
   const inputRef = useRef(null);
   const [dragging, setDragging] = useState(false);
   const [fileError, setFileError] = useState("");
@@ -105,10 +120,16 @@ function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept, req
   const handleFile = async (f) => {
     setFileError("");
     const err = validateImage(f);
-    if (err) { setFileError(err); return; }
+    if (err) {
+      setFileError(err);
+      return;
+    }
     if (requireSquare) {
       const isSquare = await checkSquare(f);
-      if (!isSquare) { setFileError("Signature must be a 1:1 square image"); return; }
+      if (!isSquare) {
+        setFileError("Signature must be a 1:1 square image");
+        return;
+      }
     }
     onFileChange(f);
   };
@@ -143,7 +164,10 @@ function UploadBox({ label, icon: Icon, file, onFileChange, onClear, accept, req
           </div>
 
           <button
-            onClick={() => { setFileError(""); onClear(); }}
+            onClick={() => {
+              setFileError("");
+              onClear();
+            }}
             className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center hover:bg-red-100 transition-colors"
           >
             <X size={13} className="text-slate-600" />

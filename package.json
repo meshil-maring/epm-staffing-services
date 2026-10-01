@@ -1,15 +1,21 @@
 {
   "name": "emp-staffing-services",
   "version": "1.0.0",
+  "private": true,
   "description": "Employee Staffing Services - Full Stack Job Portal Application",
   "main": "server/server.js",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
     "build": "cd client && npm run build",
+    "prebuild": "npm install --include=dev",
     "start": "cd server && npm start",
-    "install:all": "npm install && cd client && npm install && cd ../server && npm install"
+    "install:all": "npm install"
   },
   "repository": {
     "type": "git",
